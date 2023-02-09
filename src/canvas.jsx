@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 
 const Canvas = ({ data }) => {
-  console.log("🚀 ~ file: canvas.jsx:4 ~ Canvas ~ data", data);
   const canvasRef = useRef();
   const imageRef = useRef();
 
@@ -20,12 +19,12 @@ const Canvas = ({ data }) => {
       ctx.fillStyle = "red";
       ctx.fillText(name, left, top);
     }
-  }, []);
+  }, [data.metadata.instances]);
 
   return (
     <div style={{ display: "flex" }}>
       <canvas
-        style={{ border: "1px solid #d3d3d3", width: "100%" }}
+        style={{ border: "1px solid #d3d3d3" }}
         ref={canvasRef}
         height={data.metadata.height}
         width={data.metadata.width}
