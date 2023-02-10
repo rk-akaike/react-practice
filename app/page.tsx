@@ -1,9 +1,13 @@
-import { TestFaceRecongition } from "../examples/index";
+import Link from "next/link";
 
 const App = () => {
   return (
     <div>
-      <TestFaceRecongition />
+      <h1 className="title">
+        <Link target="_blank" href="/test-face-recognition">
+          TestFaceRecongition page!
+        </Link>
+      </h1>
     </div>
   );
 };
