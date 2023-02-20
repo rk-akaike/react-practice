@@ -108,6 +108,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@xata.io/client@^0.22.1":
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/@xata.io/client/-/client-0.22.1.tgz#ce753c192c374b022460771bbc514748baf8cf8a"
+  integrity sha512-i8oMNFOTWSfxHS7f9nfYjdMGCdFzWqtI8/v59OO0VB6QtUk5edxUn3oflF29aUrxaU7mAkIriyqI7hiIns472Q==
+
 caniuse-lite@^1.0.30001406:
   version "1.0.30001451"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001451.tgz#2e197c698fc1373d63e1406d6607ea4617c613f1"

@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://rk-akaike-s-workspace-str9lq.us-east-1.xata.sh/db/random",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
