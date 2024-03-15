@@ -1,0 +1,16 @@
+{
+  "id": 2,
+  "chart": { "type": "pie" },
+  "title": { "text": "Comparison of Total Sales For Each Product Category" },
+  "series": [
+    {
+      "name": "Sales",
+      "data": [
+        { "name": "Auto & Accessories", "y": 1096928 },
+        { "name": "Electronic", "y": 394738 },
+        { "name": "Home & Furniture", "y": 1975831 },
+        { "name": "Fashion", "y": 4345914 }
+      ]
+    }
+  ]
+}

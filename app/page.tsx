@@ -1,128 +1,73 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { FC, useState } from "react";
+import _ from "lodash";
+import RGL, { WidthProvider } from "react-grid-layout";
 
-const Chart = dynamic(() => import("./components/Chart"), {
-  ssr: false,
-  loading: () => <>Loading...</>,
-});
+import barChart from "@/app/data/bar.json";
+import lineChart from "@/app/data/line.json";
+import pieChart from "@/app/data/pie.json";
 
-const options = {
-  chart: {
-    // backgroundColor: "#FF0000",
-  },
-  title: {
-    text: "U.S Solar Employment Growth",
-    align: "left",
-  },
+import makeLayout from "./test-hook";
 
-  subtitle: {
-    text: 'By Job Category. Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>.',
-    align: "left",
-  },
+import Chart from "./components/Chart";
 
-  yAxis: {
-    title: {
-      text: "Number of Employees",
-    },
-  },
+const ReactGridLayout = WidthProvider(RGL);
+interface ResizableHandlesProps {
+  className?: string;
+  items?: number;
+  rowHeight?: number;
+  onLayoutChange?: (layout: any) => void;
+  cols?: number;
+  y?: number;
+}
 
-  xAxis: {
-    accessibility: {
-      rangeDescription: "Range: 2010 to 2020",
-    },
-  },
+const ResizableHandles: FC<ResizableHandlesProps> = (props) => {
+  const {
+    className = "layout",
+    items = 20,
+    rowHeight = 200,
+    onLayoutChange = () => {},
+    cols = 2,
+  } = props;
 
-  legend: {
-    layout: "vertical",
-    align: "right",
-    verticalAlign: "middle",
-  },
+  const charts = [barChart, lineChart, pieChart];
 
-  plotOptions: {
-    series: {
-      label: {
-        connectorAllowed: false,
-      },
-      pointStart: 2010,
-    },
-  },
+  const generateLayout = () => {
+    const availableHandles = ["s", "w", "e", "n"];
 
-  series: [
-    {
-      name: "Installation & Developers",
-      data: [
-        43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
-        161454, 154610,
-      ],
-    },
-    {
-      name: "Manufacturing",
-      data: [
-        24916, 37941, 29742, 29851, 32490, 30282, 38121, 36885, 33726, 34243,
-        31050,
-      ],
-    },
-    {
-      name: "Sales & Distribution",
-      data: [
-        11744, 30000, 16005, 19771, 20185, 24377, 32147, 30912, 29243, 29213,
-        25663,
-      ],
-    },
-    {
-      name: "Operations & Maintenance",
-      data: [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        11164,
-        11218,
-        10077,
-      ],
-    },
-    {
-      name: "Other",
-      data: [
-        21908, 5548, 8105, 11248, 8989, 11816, 18274, 17300, 13053, 11906,
-        10073,
-      ],
-    },
-  ],
+    return charts.map((chart, index) => {
+      return {
+        x: index % cols,
+        y: Math.floor(index / cols) * 2,
+        w: 1,
+        h: 2,
+        i: index.toString(),
+        resizeHandles: availableHandles,
+      };
+    });
+  };
 
-  responsive: {
-    rules: [
-      {
-        condition: {
-          maxWidth: 500,
-        },
-        chartOptions: {
-          legend: {
-            layout: "horizontal",
-            align: "center",
-            verticalAlign: "bottom",
-          },
-        },
-      },
-    ],
-  },
+  const [layout, setLayout] = useState(generateLayout());
 
-  accessibility: {
-    enabled: false,
-  },
-};
-
-const Home = () => {
   return (
-    <div className="flex justify-center items-center border border-red-400 h-screen w-screen">
-      <Chart options={options} />
-    </div>
+    <ReactGridLayout
+      layout={layout}
+      onLayoutChange={(layout) => {
+        setLayout(layout);
+        onLayoutChange(layout);
+      }}
+      className={className + " w-full h-full"}
+      rowHeight={rowHeight}
+      cols={cols}
+    >
+      {layout.map((item, index) => (
+        <div key={item.i} data-grid={item} className="border border-red-600">
+          <Chart options={charts[index]} />
+        </div>
+      ))}
+    </ReactGridLayout>
   );
 };
 
-export default Home;
+export default makeLayout(ResizableHandles);

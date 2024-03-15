@@ -1,0 +1,17 @@
+{
+  "id": 0,
+  "chart": { "type": "column" },
+  "title": { "text": "Total Sales For Each Product Category" },
+  "xAxis": {
+    "categories": [
+      "Auto & Accessories",
+      "Electronic",
+      "Fashion",
+      "Home & Furniture"
+    ],
+    "title": { "text": "Product Category" }
+  },
+  "yAxis": { "title": { "text": "Sales" } },
+  "series": [{ "name": "Sales", "data": [1096928, 394738, 4345914, 1975831] }],
+  "credits": { "enabled": false }
+}
