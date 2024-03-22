@@ -1,6 +1,6 @@
 {
   "id": 2,
-  "chart": { "type": "pie" },
+  "chart": { "type": "pie", "reflow": true },
   "title": { "text": "Comparison of Total Sales For Each Product Category" },
   "series": [
     {

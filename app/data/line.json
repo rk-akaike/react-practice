@@ -1,6 +1,6 @@
 {
   "id": 1,
-  "chart": { "type": "line" },
+  "chart": { "type": "line", "reflow": true },
   "series": [
     {
       "name": "males",

@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "chart": { "type": "column" },
+  "chart": { "type": "column", "reflow": true },
   "title": { "text": "Total Sales For Each Product Category" },
   "xAxis": {
     "categories": [
