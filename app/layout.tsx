@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import "../node_modules/react-grid-layout/css/styles.css";
+import "../node_modules/react-resizable/css/styles.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
