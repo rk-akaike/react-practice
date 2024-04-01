@@ -1,78 +1,77 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState, useCallback } from "react";
 import _ from "lodash";
-import RGL, { WidthProvider, Layout } from "react-grid-layout";
+import RGL, { Layout, WidthProvider } from "react-grid-layout";
 
-import barChart from "@/app/data/bar.json";
-import lineChart from "@/app/data/line.json";
-import pieChart from "@/app/data/pie.json";
-
-import MakeLayout from "@/app/resizable";
+import { charts, cols, rowHeight } from "@/app/constants";
+import { generateLayout } from "@/app/utils";
 
 import Chart from "@/app/components/Chart";
 
 const ReactGridLayout = WidthProvider(RGL);
 
-interface ResizableHandlesProps {
-  className?: string;
-  items?: number;
-  rowHeight?: number;
-  onLayoutChange?: (layout: Layout[]) => void;
-  cols?: number;
-  y?: number;
-}
+const Page: FC = () => {
+  const [layout, setLayout] = useState([] as Layout[]);
+  const chartRef = useRef<HTMLDivElement>(null);
 
-type ResizeHanlde = "s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne";
+  useEffect(() => {
+    setLayout(generateLayout());
+  }, []);
 
-const ResizableHandles: FC<ResizableHandlesProps> = (props) => {
-  const className = "layout",
-    rowHeight = 200,
-    cols = 3;
-
-  const charts = [barChart, lineChart, pieChart];
-
-  const generateLayout = () => {
-    const availableHandles: ResizeHanlde[] = [
-      "s",
-      "w",
-      "e",
-      "n",
-      "sw",
-      "nw",
-      "se",
-      "ne",
-    ];
-
-    return charts.map((chart, index) => {
-      return {
-        x: index % cols,
-        y: Math.floor(index / cols) * 2,
-        w: 1,
-        h: 2,
-        i: index.toString(),
-        resizeHandles: availableHandles,
-      };
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      setLayout(() => [...layout]);
     });
-  };
 
-  const [layout, setLayout] = useState<Layout[]>(generateLayout());
+    if (chartRef.current) {
+      resizeObserver.observe(chartRef.current);
+    }
+
+    return () => {
+      if (chartRef.current) {
+        resizeObserver.unobserve(chartRef.current);
+      }
+    };
+  }, [chartRef.current]);
+
+  const onLayoutChange = useCallback((newLayout: Layout[]) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("layout", JSON.stringify(newLayout));
+    }
+  }, []);
 
   return (
     <ReactGridLayout
       layout={layout}
-      className={className + " w-full h-full"}
+      className="layout w-full h-full"
       rowHeight={rowHeight}
       cols={cols}
-      compactType="horizontal"
+      onLayoutChange={onLayoutChange}
+      draggableHandle=".draggable-handle"
     >
-      {layout.map((item, index) => (
-        <div key={item.i} data-grid={item} className="border">
-          <Chart options={charts[index]} />
+      {layout.map((item: Layout, index: number) => (
+        <div
+          key={item.i}
+          data-grid={item}
+          ref={chartRef}
+          className="border border-green-600 flex flex-col"
+        >
+          <div className="draggable-handle border border-blue-600 text-center cursor-pointer">
+            click here to drag
+          </div>
+          <div className="border border-red-600  h-full">
+            <Chart
+              options={charts[index].data as unknown as Highcharts.Options}
+            />
+          </div>
+          <div className="draggable-handle border border-blue-600 text-center cursor-pointer">
+            click here to drag
+          </div>
         </div>
       ))}
     </ReactGridLayout>
   );
 };
 
-export default MakeLayout(ResizableHandles);
+export default Page;

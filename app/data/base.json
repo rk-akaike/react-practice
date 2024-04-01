@@ -1,4 +1,8 @@
 {
+  "id": 0,
+  "title": "My First Chart",
+  "type": "line",
+
   "responsive": {
     "rules": [
       {

@@ -13,5 +13,6 @@
   },
   "yAxis": { "title": { "text": "Sales" } },
   "series": [{ "name": "Sales", "data": [1096928, 394738, 4345914, 1975831] }],
-  "credits": { "enabled": false }
+  "credits": { "enabled": false },
+  "responsive": true
 }

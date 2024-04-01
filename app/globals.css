@@ -5,3 +5,8 @@
 .h-full {
   height: 100%;
 }
+
+.react-resizable-handle {
+  /* display: none; */
+  /* opacity: 0; */
+}

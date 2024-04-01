@@ -12,5 +12,7 @@
         { "name": "Fashion", "y": 4345914 }
       ]
     }
-  ]
+  ],
+  "credits": { "enabled": false },
+  "responsive": true
 }

@@ -40,5 +40,6 @@
       "2018-12"
     ]
   },
-  "credits": { "enabled": false }
+  "credits": { "enabled": false },
+  "responsive": true
 }

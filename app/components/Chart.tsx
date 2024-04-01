@@ -1,11 +1,9 @@
-"use client";
-
 import { FC } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 interface ChartProps {
-  options: any;
+  options: Highcharts.Options;
 }
 
 const Chart: FC<ChartProps> = ({ options }) => {

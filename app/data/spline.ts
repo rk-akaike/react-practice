@@ -59,8 +59,9 @@ export const chart = {
     series: {
       point: {
         events: {
-          click: function () {
-            window.location.href = this.series.options.website;
+          click: function (this: Highcharts.Point) {
+            window.location.href =
+              this.series.options.accessibility?.description || "";
           },
         },
       },

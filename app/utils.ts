@@ -1,29 +1,22 @@
-export const getLayouts = () => {
-  return {
-    lg: [
-      { i: "barChart", x: 0, y: 0, w: 2, h: 2 },
-      { i: "lineChart", x: 2, y: 0, w: 2, h: 2 },
-      { i: "pieChart", x: 4, y: 0, w: 2, h: 2 },
-    ],
-    md: [
-      { i: "barChart", x: 0, y: 0, w: 2, h: 2 },
-      { i: "lineChart", x: 2, y: 0, w: 2, h: 2 },
-      { i: "pieChart", x: 4, y: 0, w: 2, h: 2 },
-    ],
-    sm: [
-      { i: "barChart", x: 0, y: 0, w: 3, h: 2 },
-      { i: "lineChart", x: 3, y: 0, w: 3, h: 2 },
-      { i: "pieChart", x: 6, y: 0, w: 3, h: 2 },
-    ],
-    xs: [
-      { i: "barChart", x: 0, y: 0, w: 4, h: 2 },
-      { i: "lineChart", x: 4, y: 0, w: 4, h: 2 },
-      { i: "pieChart", x: 8, y: 0, w: 4, h: 2 },
-    ],
-    xxs: [
-      { i: "barChart", x: 0, y: 0, w: 6, h: 2 },
-      { i: "lineChart", x: 6, y: 0, w: 6, h: 2 },
-      { i: "pieChart", x: 12, y: 0, w: 6, h: 2 },
-    ],
-  };
+import { charts, cols, resizeHandles } from "@/app/constants";
+
+export const generateLayout = () => {
+  if (typeof window !== "undefined") {
+    const savedLayout = localStorage.getItem("layout");
+
+    if (savedLayout) {
+      return JSON.parse(savedLayout);
+    }
+  }
+
+  return charts.map((_, index) => {
+    return {
+      x: index % cols,
+      y: Math.floor(index / cols) * 2,
+      w: 1,
+      h: 2,
+      i: index.toString(),
+      resizeHandles: resizeHandles,
+    };
+  });
 };
