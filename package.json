@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.0.10",
     "highcharts": "^11.3.0",
     "highcharts-react-official": "^3.2.1",
     "lodash": "^4.17.21",
