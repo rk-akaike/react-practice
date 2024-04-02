@@ -9,6 +9,6 @@ export const charts = [
 ];
 
 export const cols = 3;
-export const rowHeight = 200;
+export const rowHeight = 300;
 export const compactType = "horizontal";
 export const resizeHandles = ["s", "w", "e", "n", "sw", "nw", "se", "ne"];
