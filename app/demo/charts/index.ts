@@ -1,6 +1,9 @@
 // @ts-nocheck
 
-import { getGroupedBarChartConfig } from "@/app/demo/charts/column";
+import {
+  getBarChartConfig,
+  getGroupedBarChartConfig,
+} from "@/app/demo/charts/column";
 import { getLineChartConfig } from "@/app/demo/charts/line";
 import { getPieChartConfig } from "@/app/demo/charts/pie";
 import { getAreaChartConfig } from "@/app/demo/charts/area";
@@ -12,6 +15,8 @@ export const createHighChartConfig = (generatedData) => {
 
   switch (chartType) {
     case "bar":
+      return getBarChartConfig(data, columns, chart_config, data_types);
+
     case "grouped_bar":
       return getGroupedBarChartConfig(data, columns, chart_config, data_types);
 
