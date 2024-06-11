@@ -4,7 +4,10 @@ import {
   getBarChartConfig,
   getGroupedBarChartConfig,
 } from "@/app/demo/charts/column";
-import { getLineChartConfig } from "@/app/demo/charts/line";
+import {
+  getLineChartConfig,
+  getMultiLineChartConfig,
+} from "@/app/demo/charts/line";
 import { getPieChartConfig } from "@/app/demo/charts/pie";
 import { getAreaChartConfig } from "@/app/demo/charts/area";
 
@@ -21,8 +24,10 @@ export const createHighChartConfig = (generatedData) => {
       return getGroupedBarChartConfig(data, columns, chart_config, data_types);
 
     case "line":
-    case "multiline":
       return getLineChartConfig(data, columns, chart_config, data_types);
+
+    case "multiline":
+      return getMultiLineChartConfig(data, columns, chart_config, data_types);
 
     case "pie":
       return getPieChartConfig(data, columns, chart_config, data_types);

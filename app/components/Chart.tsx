@@ -7,10 +7,20 @@ interface ChartProps {
 }
 
 const Chart: FC<ChartProps> = ({ options }) => {
+  const mergedOptions = {
+    ...options,
+    title: {
+      text: null,
+    },
+    credits: {
+      ...options.credits,
+      enabled: false,
+    },
+  };
   return (
     <HighchartsReact
       highcharts={Highcharts}
-      options={options}
+      options={mergedOptions}
       containerProps={{ className: "h-full" }}
     />
   );
