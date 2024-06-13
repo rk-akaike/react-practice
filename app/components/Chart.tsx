@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
@@ -7,6 +7,8 @@ interface ChartProps {
 }
 
 const Chart: FC<ChartProps> = ({ options }) => {
+  const [reload, setReload] = useState<boolean>(false);
+
   const mergedOptions = {
     ...options,
     title: {
@@ -17,6 +19,11 @@ const Chart: FC<ChartProps> = ({ options }) => {
       enabled: false,
     },
   };
+
+  useEffect(() => {
+    setReload(!reload);
+  }, [options]);
+
   return (
     <HighchartsReact
       highcharts={Highcharts}
