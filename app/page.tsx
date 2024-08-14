@@ -1,37 +1,28 @@
 "use client";
 
-import { FC, useEffect } from "react";
-import Plotly from "plotly.js-basic-dist";
+import { FC } from "react";
 import PlotlyConfig from "./data.json";
+import dynamic from "next/dynamic";
+
+const Plot = dynamic(() => import("react-plotly.js"), {
+  ssr: false,
+  loading: () => <>Loading...</>,
+});
 
 interface PlotProps {
   data: Plotly.Data[];
   layout: Plotly.Layout;
 }
 
-const Plot: FC<PlotProps> = () => {
-  useEffect(() => {
-    PlotlyConfig.forEach((config, index) => {
-      const dataCopy = JSON.parse(JSON.stringify(config.data));
-      const layoutCopy = JSON.parse(JSON.stringify(config.layout));
-      Plotly.newPlot(`plot${index}`, dataCopy, layoutCopy, {
-        autosizable: true,
-        responsive: true,
-      });
-    });
-  }, []);
-
+const PlotGraph: FC = () => {
   return (
     <div className="flex flex-wrap">
-      {PlotlyConfig.map((_, index) => (
-        <div
-          id={`plot${index}`}
-          className="border border-red-600 h-[300px] w-[45%] m-4"
-          key={index}
-        />
+      {PlotlyConfig.map((config, index) => (
+        // @ts-ignore
+        <Plot data={config.data} layout={config.layout} key={index} />
       ))}
     </div>
   );
 };
 
-export default Plot;
+export default PlotGraph;
