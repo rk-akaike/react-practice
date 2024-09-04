@@ -3,16 +3,19 @@
 import React, { FC, useEffect, useRef, useState, useCallback } from "react";
 import _ from "lodash";
 import RGL, { Layout, WidthProvider } from "react-grid-layout";
+import { createPortal } from "react-dom";
 
 import { charts, cols, rowHeight } from "@/app/constants";
 import { generateLayout } from "@/app/utils";
 
 import Chart from "@/app/components/Chart";
+import Modal from "./components/Modal";
 
 const ReactGridLayout = WidthProvider(RGL);
 
 const Page: FC = () => {
   const [layout, setLayout] = useState([] as Layout[]);
+  const [showModal, setShowModal] = useState(false);
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,6 +44,8 @@ const Page: FC = () => {
     }
   }, []);
 
+  const toggleModal = () => setShowModal((prev) => !prev);
+
   return (
     <ReactGridLayout
       layout={layout}
@@ -68,6 +73,23 @@ const Page: FC = () => {
           <div className="draggable-handle border border-blue-600 text-center cursor-pointer">
             click here to drag
           </div>
+          <button onClick={toggleModal}>toggle modal</button>
+          {createPortal(
+            <Modal isOpen={showModal} onClose={toggleModal}>
+              <div className="flex flex-col p-6 w-[400px] h-[400px] bg-red-400">
+                <div className="pt-4 flex flex-col gap-1">
+                  <p className="text-lg-semibold text-text-primary-light">
+                    Remove metric
+                  </p>
+                  <p className="text-sm-regular text-text-tertiary-light">
+                    Are you sure you want to delete this metric? This action
+                    cannot be undone.
+                  </p>
+                </div>
+              </div>
+            </Modal>,
+            document.getElementById("modal-root")!
+          )}
         </div>
       ))}
     </ReactGridLayout>

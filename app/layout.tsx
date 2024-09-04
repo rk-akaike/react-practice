@@ -23,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <SpeedInsights />
         {children}
+        <div id="modal-root" />
       </body>
     </html>
   );
